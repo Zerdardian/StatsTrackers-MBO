@@ -1,5 +1,6 @@
 <?php
     if($pdoconn == true) {
+        // include_once "./include/setup.php";
         if(!empty($_POST)) {
             if(file_exists("./access/post/$page.php")) {
                 include_once "./access/post/$page.php";
