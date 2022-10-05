@@ -1,6 +1,13 @@
 <?php
+    // We require these values.
     if(!empty($id) && !empty($value)) {
+        // Are you logged in?
         if(!empty($_SESSION['user'])) {
+            /**
+             * Switching it up!
+             * Checking to change base values of the user.
+             * Like email, Firstname lastname. Not password, will be in a different place tho. Safety.
+             */
             switch($id) {
                 case 'email': 
                     $check = $pdo->query("SELECT * FROM `users` WHERE `email`='$value'")->fetch();
@@ -15,6 +22,7 @@
                             return;
                         }
                     } else {
+                        // Email already being used by an other account.
                         echo error('ajax', 'emailalreadyinuse');
                     }
                     break;
@@ -33,13 +41,16 @@
                     }
                     break;
                 default:
+                    // A unknown value has been given.
                     echo error('ajax', 'unknownvalue');
                     break;
             }
         } else {
+            // Please log in before using anything.
             echo error('ajax', 'notloggedin');
         }
     } else {
+        // A value is not known.
         echo error('ajax', 'emptyvalues');
     }
 ?>

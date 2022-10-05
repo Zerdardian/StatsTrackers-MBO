@@ -1,4 +1,6 @@
 <?php
+// Niet af, Don't look, Thank you.
+
 tablecheck('user', 'CREATE TABLE `user` (
         `id` int(11) NOT NULL,
         `userid` varchar(50) NOT NULL,

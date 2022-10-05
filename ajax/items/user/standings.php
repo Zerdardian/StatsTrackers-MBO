@@ -1,14 +1,19 @@
 <?php
 if (!empty($id)) {
+    // Please don't be empty.
     if (!empty($_SESSION['user'])) {
+        // Check item is goals or assists.
         if ($id == 'goals') {
+            // Base value.
             $teamid = $goals = null;
             if (!empty($array)) {
                 $teamid = $array['teamid'];
                 $goals = $array['goals'];
 
+                // Check if team is still known
                 $check = $pdo->query("SELECT * FROM `teams` WHERE `teamid`='$teamid'")->fetch();
                 if (!empty($check)) {
+                    // Updating.
                     $update = $pdo->prepare("UPDATE `userteams` SET `goals`=$goals WHERE `userid`='$userid' AND `teamid`='$teamid'");
                     if ($update->execute()) {
                         $succes['code'] = 200;
@@ -17,6 +22,7 @@ if (!empty($id)) {
 
                         echo json_encode($succes);
                     } else {
+                        // HOW IS THERE A PDO ERROR MAN.
                         echo error('ajax', 'pdoerror');
                     }
                 }
@@ -28,8 +34,10 @@ if (!empty($id)) {
                 $teamid = $array['teamid'];
                 $assists = $array['assists'];
 
+                // Check if team is known
                 $check = $pdo->query("SELECT * FROM `teams` WHERE `teamid`='$teamid'")->fetch();
                 if (!empty($check)) {
+                    // Update the team prediction
                     $update = $pdo->prepare("UPDATE `userteams` SET `assists`=$assists WHERE `userid`='$userid' AND `teamid`='$teamid'");
                     if ($update->execute()) {
                         $succes['code'] = 200;
@@ -38,12 +46,14 @@ if (!empty($id)) {
 
                         echo json_encode($succes);
                     } else {
+                        // HOW IS THERE A PDO ERROR MAN.
                         echo error('ajax', 'pdoerror');
                     }
                 }
             }
         }
     } else {
+        // Woopsie dasie, not logged in.
         echo error('ajax', 'notloggedin');
     }
 }

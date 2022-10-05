@@ -1,5 +1,6 @@
 <?php
 if (!empty($_POST)) {
+    // Base values and making sure those values are being set.
     $page = $item = $value = $id = $array = $key = null;
     if (!empty($_POST['page'])) {
         $page = $_POST['page'];
@@ -20,6 +21,7 @@ if (!empty($_POST)) {
         $array = $_POST['array'];
     }
 
+    // If document requires a api key.
     if (!empty($_GET)) {
         if (!empty($_GET['key'])) {
             $key = $_GET['key'];
