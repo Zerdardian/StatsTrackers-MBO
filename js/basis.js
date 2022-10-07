@@ -48,6 +48,10 @@ $(document).ready(function () {
         }
     })
 
+    // Captcha refresh
+    $('.refresh-captcha').click(function() {
+        $('.captcha-image').attr('src', '/ajax/items/captha.php')
+    })
 
     // Userinfo
     $('#userinfo').ready(function () {
@@ -106,5 +110,11 @@ $(document).ready(function () {
                 })
             }
         })
+    })
+
+    // User edit
+
+    $('#useredit').ready(function() {
+        
     })
 })

@@ -14,7 +14,7 @@ if (!empty($id)) {
                 $check = $pdo->query("SELECT * FROM `teams` WHERE `teamid`='$teamid'")->fetch();
                 if (!empty($check)) {
                     // Updating.
-                    $update = $pdo->prepare("UPDATE `userteams` SET `goals`=$goals WHERE `userid`='$userid' AND `teamid`='$teamid'");
+                    $update = $pdo->prepare("UPDATE `userteams` SET `goals`=$goals, `updatedby`='$userid' WHERE `userid`='$userid' AND `teamid`='$teamid'");
                     if ($update->execute()) {
                         $succes['code'] = 200;
                         $succes['type'] = null;
@@ -38,7 +38,7 @@ if (!empty($id)) {
                 $check = $pdo->query("SELECT * FROM `teams` WHERE `teamid`='$teamid'")->fetch();
                 if (!empty($check)) {
                     // Update the team prediction
-                    $update = $pdo->prepare("UPDATE `userteams` SET `assists`=$assists WHERE `userid`='$userid' AND `teamid`='$teamid'");
+                    $update = $pdo->prepare("UPDATE `userteams` SET `assists`=$assists, `updatedby`='$userid' WHERE `userid`='$userid' AND `teamid`='$teamid'");
                     if ($update->execute()) {
                         $succes['code'] = 200;
                         $succes['type'] = null;
