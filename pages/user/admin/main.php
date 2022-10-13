@@ -1,3 +1,10 @@
+<div class="search">
+    <form action="/user/admin/search/" method="get">
+        <input type="text" name="q" id="searchbar" placeholder="Zoeken op Email of Naam">
+        <input type="submit" value="Zoeken">
+    </form>
+</div>
+
 <div class="users">
     <?php
     foreach ($users as $user) {
