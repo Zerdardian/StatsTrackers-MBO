@@ -6,7 +6,8 @@ $lname = $_POST['lname'];
 $email = $_POST['email'];
 $password = $_POST['password'];
 $repassword = $_POST['repassword'];
-
+$captha = $_POST['captcha_challenge'];
+if(!empty($captha) && $captha == $_SESSION['captcha_text']){
 if (empty($email) || empty($password) || empty($repassword)) {
     // Values not all filled in.
     $error['bool'] = true;
@@ -55,4 +56,5 @@ if (empty($email) || empty($password) || empty($repassword)) {
         $error['type'] = "USRALRKNWN";
         $error['message'] = 'Deze email wordt al gebruikt, probeer het opnieuw';
     }
+}
 }

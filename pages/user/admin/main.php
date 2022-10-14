@@ -6,6 +6,10 @@
 </div>
 
 <div class="users">
+    <div class="title">
+        Alle users
+    </div>
+    <div class="items">
     <?php
     foreach ($users as $user) {
     ?>
@@ -30,4 +34,5 @@
     <?php
     }
     ?>
+    </div>
 </div>

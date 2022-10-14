@@ -115,6 +115,20 @@ $(document).ready(function () {
     // User edit
 
     $('#useredit').ready(function() {
-        
+        $('.edit').change(function() {
+            var value = $(this).val();
+            var type = $(this).data('type');
+            var userid = $(this).data('userid');
+            var team = $(this).data('teamid');
+
+            if(!userid) return;
+            if(team) {
+                console.log('team')
+            } else {
+                console.log('anders')
+            }
+
+            console.log(type);
+        })
     })
 })

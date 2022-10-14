@@ -50,10 +50,10 @@ foreach ($allteams as $team) {
 <div id="useredit" class="edit" data-userid='<?= $_GET['userid'] ?>'>
     <div id="edituserinfo">
         <div class="firstname">
-            <input type="text" name="fname" id="fname" class="edit" value="<?= $user['firstname'] ?>">
+            <input type="text" name="fname" id="fname" class="edit" value="<?= $user['firstname'] ?>" data-userid="<?=$userid?>" data-type="firstname">
         </div>
         <div class="lastname">
-            <input type="text" name="lname" id="lname" class="edit" value="<?= $user['lastname'] ?>">
+            <input type="text" name="lname" id="lname" class="edit" value="<?= $user['lastname'] ?>" data-userid="<?=$userid?>" data-type="lastname">
         </div>
     </div>
     <div id="teams">
@@ -62,6 +62,7 @@ foreach ($allteams as $team) {
             foreach ($teams as $team) {
                 $userteam[$team['teamid']] = true;
                 $info = $pdo->query("SELECT * FROM `teams` WHERE `teamid`='" . $team['teamid'] . "'")->fetch();
+                $userteam = $pdo->query("SELECT * FROM `userteams` WHERE `teamid`='".$team['teamid']."' AND `userid`='".$userid."'")->fetch();
             ?>
                 <div class="team" data-teamid="<?= $team['teamid'] ?>">
                     <div class="teaminfo">
@@ -74,11 +75,11 @@ foreach ($allteams as $team) {
                     </div>
                     <div class="goalsdiv">
                         <div class="goalstext">Goals</div>
-                        <input type="number" name="goals" class="goals" id="<?= $team['teamid'] ?>_goals" data-teamid="<?= $team['teamid'] ?>" value=<?= $team['goals'] ?>>
+                        <input type="number" name="goals" class="goals" id="goals" data-userid="<?=$userid?>" data-teamid="<?= $team['teamid'] ?>" value=<?= $userteam['goals'] ?>>
                     </div>
                     <div class="assistsdiv">
                         <div class="assiststext">Assists</div>
-                        <input type="number" name="assists" class="assists" id="<?= $team['teamid'] ?>_assists" data-teamid="<?= $team['teamid'] ?>" value=<?= $team['assists'] ?>>
+                        <input type="number" name="assists" class="assists" id="assists" data-userid="<?=$userid?>" data-teamid="<?= $team['teamid'] ?>" value=<?= $userteam['assists'] ?>>
                     </div>
 
                     <div class="remove">
@@ -93,7 +94,7 @@ foreach ($allteams as $team) {
         $i = 0;
         $addteam = null;
         foreach ($allteams as $allteam) {
-            if ($userteam[$allteam['teamid']] == false) {
+            if (!empty($userteam[$allteam['teamid']]) && $userteam[$allteam['teamid']] == false) {
                 $addteam[$i]['teamid'] = $allteam['teamid'];
                 $addteam[$i]['teamname'] = $allteam['teamname'];
                 $i++;
