@@ -50,10 +50,10 @@ foreach ($allteams as $team) {
 <div id="useredit" class="edit" data-userid='<?= $_GET['userid'] ?>'>
     <div id="edituserinfo">
         <div class="firstname">
-            <input type="text" name="fname" id="fname" class="edit" value="<?= $user['firstname'] ?>" data-userid="<?=$userid?>" data-type="firstname">
+            <input type="text" name="fname" id="fname" class="edit" value="<?= $user['firstname'] ?>" data-userid="<?= $userid ?>" data-type="firstname">
         </div>
         <div class="lastname">
-            <input type="text" name="lname" id="lname" class="edit" value="<?= $user['lastname'] ?>" data-userid="<?=$userid?>" data-type="lastname">
+            <input type="text" name="lname" id="lname" class="edit" value="<?= $user['lastname'] ?>" data-userid="<?= $userid ?>" data-type="lastname">
         </div>
     </div>
     <div id="teams">
@@ -62,7 +62,7 @@ foreach ($allteams as $team) {
             foreach ($teams as $team) {
                 $userteam[$team['teamid']] = true;
                 $info = $pdo->query("SELECT * FROM `teams` WHERE `teamid`='" . $team['teamid'] . "'")->fetch();
-                $userteam = $pdo->query("SELECT * FROM `userteams` WHERE `teamid`='".$team['teamid']."' AND `userid`='".$userid."'")->fetch();
+                $userteam = $pdo->query("SELECT * FROM `userteams` WHERE `teamid`='" . $team['teamid'] . "' AND `userid`='" . $userid . "'")->fetch();
             ?>
                 <div class="team" data-teamid="<?= $team['teamid'] ?>">
                     <div class="teaminfo">
@@ -75,11 +75,11 @@ foreach ($allteams as $team) {
                     </div>
                     <div class="goalsdiv">
                         <div class="goalstext">Goals</div>
-                        <input type="number" name="goals" class="goals" id="goals" data-userid="<?=$userid?>" data-teamid="<?= $team['teamid'] ?>" value=<?= $userteam['goals'] ?>>
+                        <input type="number" name="goals" class="goals" id="goals" data-userid="<?= $userid ?>" data-teamid="<?= $team['teamid'] ?>" value=<?= $userteam['goals'] ?>>
                     </div>
                     <div class="assistsdiv">
                         <div class="assiststext">Assists</div>
-                        <input type="number" name="assists" class="assists" id="assists" data-userid="<?=$userid?>" data-teamid="<?= $team['teamid'] ?>" value=<?= $userteam['assists'] ?>>
+                        <input type="number" name="assists" class="assists" id="assists" data-userid="<?= $userid ?>" data-teamid="<?= $team['teamid'] ?>" value=<?= $userteam['assists'] ?>>
                     </div>
 
                     <div class="remove">
@@ -92,9 +92,10 @@ foreach ($allteams as $team) {
         </div>
         <?php
         $i = 0;
-        $addteam = null;
         foreach ($allteams as $allteam) {
-            if (!empty($userteam[$allteam['teamid']]) && $userteam[$allteam['teamid']] == false) {
+            $userteam = $pdo->query("SELECT * FROM `userteams` WHERE `teamid`='" . $allteam['teamid'] . "' AND `userid`='" . $userid . "'")->fetch();
+            if (empty($userteam)) {
+
                 $addteam[$i]['teamid'] = $allteam['teamid'];
                 $addteam[$i]['teamname'] = $allteam['teamname'];
                 $i++;
