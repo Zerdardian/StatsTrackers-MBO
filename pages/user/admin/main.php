@@ -1,6 +1,12 @@
 <div class="search">
     <form action="/user/admin/search/" method="get">
         <input type="text" name="q" id="searchbar" placeholder="Zoeken op Email of Naam">
+        <select name="type" id="type">
+            <option value="all">Seach on all users</option>
+            <option value="email">Seach by email</option>
+            <option value="name">Search by Name</option>
+            <option value="userid">Search by Userid</option>
+        </select>
         <input type="submit" value="Zoeken">
     </form>
 </div>
