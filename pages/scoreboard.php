@@ -26,9 +26,6 @@ foreach ($teams as $a) {
     }
     $i++;
 }
-echo '<pre>';
-print_r($team);
-echo '</pre>';
 ?>
 
 <div class="teams">
@@ -63,7 +60,7 @@ echo '</pre>';
                 }
             }
         ?>
-            <div class="team" data-teamid="<?= $item['teamid'] ?>">
+            <div class="team" data-teamid="<?= $item['teamid'] ?>" style="margin-top:20px">
                 <div class="items">
                     <div class="item">
                         <div class="total">
