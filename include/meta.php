@@ -1,4 +1,5 @@
 <?php
+// Not in use.
     if($pdoconn == true) {
 
     } 
