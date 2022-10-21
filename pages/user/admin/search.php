@@ -62,8 +62,10 @@ if (!empty($_GET['q'])) {
         }
 
         $i = 0;
-        foreach ($users as $user) {
-            $i++;
+        if(!empty($users)) {
+            foreach ($users as $user) {
+                $i++;
+            }
         }
 
         if (!empty($users)) {
