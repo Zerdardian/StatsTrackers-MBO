@@ -1,28 +1,44 @@
 <?php
-    $email = $_POST['email'];
-    $password = $_POST['password'];
+// Load post data.
 
-    $check = $pdo->query("SELECT * FROM users WHERE `email`='$email'")->fetch();
-    if(!empty($check)) {
-        if(password_verify($password, $check['password'])) {
+$email = $_POST['email'];
+$password = $_POST['password'];
+$captha = $_POST['captcha_challenge'];
+
+
+// Check if email is known as an account.
+$check = $pdo->query("SELECT * FROM users WHERE `email`='$email'")->fetch();
+if ($_SESSION['captcha_text'] == $captha) {
+    if (!empty($check)) {
+        // Check if it is the same password.
+        if (password_verify($password, $check['password'])) {
             $_SESSION['user']['email'] = $email;
             $_SESSION['user']['userid'] = $check['userid'];
 
-            if(!empty($_POST['returntohome'])) {
-                if($_POST['returntohome'] == true) {
+            // If you want to return to the main page
+            if (!empty($_POST['returntohome'])) {
+                if ($_POST['returntohome'] == true) {
                     header('location: /');
                 }
             } else {
+                // Go to user info page.
                 header('location: /user/userinfo/');
             }
         } else {
+            // Wrong password. No access.
             $error['bool'] = true;
-        $error['type'] = 'WRNGUSRPASS';
-        $error['message'] = "Email or Password Wrong, please try again";
+            $error['type'] = 'WRNGUSRPASS';
+            $error['message'] = "Email or Password Wrong, please try again";
         }
     } else {
+        // No account yet.
         $error['bool'] = true;
         $error['type'] = 'NOUSR';
         $error['message'] = "No user found, register here <a href='/register/'>now to join!</a>";
     }
-?>
+} else {
+    // No account yet.
+    $error['bool'] = true;
+    $error['type'] = 'NOCAPT';
+    $error['message'] = "The filled captha is wrong or you forgot to fill it in. Please try again!";
+}

@@ -2,6 +2,7 @@ $(document).ready(function () {
     var page = $('#hpage').val();
     var item = $('#hitem').val()
     var pageitem = $('#hpageitem')
+    // General useage of the input if being called to be updated whenever.
     $('input.general').change(function () {
         if (page == 'user') {
             if (item == 'userinfo') {
@@ -47,9 +48,14 @@ $(document).ready(function () {
         }
     })
 
+    // Captcha refresh
+    $('.refresh-captcha').click(function() {
+        $('.captcha-image').attr('src', '/ajax/items/captha.php')
+    })
 
+    // Userinfo
     $('#userinfo').ready(function () {
-        console.log('userinfo');
+        // Input on the base of userinfo
         $('input').change(function () {
             var value = $(this).val();
             var team = $(this).data('teamid');
@@ -75,7 +81,7 @@ $(document).ready(function () {
                     url: "/ajax/standings.php",
                     data: dataject,
                     success: function (response) {
-                        console.log(response);
+                        // console.log(response);
                     }
                 })
             }
@@ -94,8 +100,6 @@ $(document).ready(function () {
                     'value': 'null',
                     'array': items
                 }
-
-                console.log(dataject);
                 $.ajax({
                     type: "POST",
                     url: "/ajax/standings.php",
@@ -106,21 +110,25 @@ $(document).ready(function () {
                 })
             }
         })
+    })
 
-        // $('input.inputgoals').change(function() {
-        //     var item = $(this);
-        //     var teamid = item.data('teamid');
-        //     var value = item.val();
+    // User edit
 
-        //     console.log(teamid);
-        // })
+    $('#useredit').ready(function() {
+        $('.edit').change(function() {
+            var value = $(this).val();
+            var type = $(this).data('type');
+            var userid = $(this).data('userid');
+            var team = $(this).data('teamid');
 
-        // $('input.inputassists').change(function() {
-        //     var item = $(this);
-        //     var teamid = item.data('teamid');
-        //     var value = item.val();
+            if(!userid) return;
+            if(team) {
+                console.log('team')
+            } else {
+                console.log('anders')
+            }
 
-        //     console.log(value);
-        // })
+            console.log(type);
+        })
     })
 })
